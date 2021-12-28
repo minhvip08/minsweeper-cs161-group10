@@ -110,7 +110,6 @@ void playMinesweeper() {
 
 		moving(x, y);
 
-
 		gameOver = continuePlayGame(displayBoard, baseBoard, mines, x, y, remainTurn, t1);
 
 		if ((gameOver == false) && remainTurn == 0) {

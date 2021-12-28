@@ -4,8 +4,8 @@ extern int MINES;
 extern int LEVEL;
 
 void initialization(char baseBoard[][MAXSIDE], char displayBoard[][MAXSIDE]) {
-	
-	
+
+
 	for (int i = 0; i < LENGTH; i++) {
 		for (int j = 0; j < LENGTH; j++) {
 			baseBoard[i][j] = '-';
@@ -79,7 +79,7 @@ void outputConsole(char displayBoard[][MAXSIDE]) {
 }
 
 void putFlag(int x, int y, char displayBoard[][MAXSIDE]) {
-	
+
 	if (displayBoard[x][y] == 'P')
 		displayBoard[x][y] = '-';
 	else displayBoard[x][y] = 'P';
@@ -87,9 +87,15 @@ void putFlag(int x, int y, char displayBoard[][MAXSIDE]) {
 }
 
 void moving(int& x, int& y) {
-	cout << "Enter the cell you choose (row _ colum): ";
+	cout << "\nPlease enter right type of data: ";
+	cout << "\nif you enter wrong type, the computer will be corrupted and exit this program!";
+	cout << "\nEnter the cell you choose (row _ colum): ";
 	cin >> x >> y;
-	return;
+	if (!(0 <= x && x < LENGTH) || !(0 <= y && y < LENGTH)) {
+		exit(0);
+		return ;
+	}
+	return ;
 }
 
 bool checkMine(int x, int y, char baseBoard[][MAXSIDE]) {
@@ -121,7 +127,7 @@ void replaceMine(int row, int col, char board[][MAXSIDE])
 
 bool checkExist(int row, int col)
 {
-	
+
 	return (row >= 0) && (row < LENGTH) &&
 		(col >= 0) && (col < LENGTH);
 }
@@ -195,7 +201,7 @@ int countAdjacentMines(int row, int col, random mines[MAXMINES],
 void saveGame(char displayBoard[][MAXSIDE], char baseBoard[][MAXSIDE], random mines[MAXMINES], int remainTurn, clock_t t1) {
 
 	ofstream outFile;
-	if ( LEVEL == BEGINNER)
+	if (LEVEL == BEGINNER)
 		outFile.open("savegameBEGINNER.txt");
 	else if (LEVEL == INTERMEDIATE)
 		outFile.open("savegameINTERMEDIATE.txt");
@@ -204,12 +210,12 @@ void saveGame(char displayBoard[][MAXSIDE], char baseBoard[][MAXSIDE], random mi
 	for (int i = 0; i < LENGTH; i++) {
 		for (int j = 0; j < LENGTH; j++) {
 			outFile << displayBoard[i][j] << ' ';
-			
+
 		}
 		outFile << '\n';
 	}
 
-	
+
 
 	for (int i = 0; i < LENGTH; i++) {
 		for (int j = 0; j < LENGTH; j++) {
@@ -218,7 +224,7 @@ void saveGame(char displayBoard[][MAXSIDE], char baseBoard[][MAXSIDE], random mi
 		outFile << '\n';
 	}
 
-	
+
 
 	for (int i = 0; i < MINES; i++) {
 		outFile << mines[i].x << ' ' << mines[i].y << '\n';
@@ -402,8 +408,10 @@ void showScoreBoard() {
 		file.open("scoreintermediate.txt");
 	else if (LEVEL == ADVANCED)
 		file.open("scoreadvanced.txt");
+	setColor(12);
 	cout << "\t\t\t-------SCORE BOARD-------\n";
 	cout << "\t\t\tTime" << setw(20) << "Name" << endl;
+	setColor(7);
 	while (!file.eof()) {
 		file.getline(input, 100);
 		cout << "\t\t\t" << input << endl;
